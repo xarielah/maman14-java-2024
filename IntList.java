@@ -72,10 +72,13 @@ public class IntList {
                 tail = tail.getNext();
             }
 
-            // If the sum is equal to the target number, return true.
-            if (sum == num) {
+            // If the current value is equal to the target number, return true.
+            if (p.getValue() == num)
                 return true;
-            }
+
+            // If the sum is equal to the target number, return true.
+            if (sum == num)
+                return true;
 
             // Move the p pointer to the next node in the list.
             p = p.getNext();
@@ -165,24 +168,5 @@ public class IntList {
 
         // Return the max node.
         return max;
-    }
-
-    public static void main(String[] args) {
-        IntList list = new IntList();
-        list.addToEnd(3);
-        list.addToEnd(6);
-        list.addToEnd(2);
-        list.addToEnd(7);
-        list.addToEnd(1);
-
-        System.out.println(list.subListSum(5));
-
-        IntList list2 = new IntList();
-        list2.addToEnd(5);
-        list2.addToEnd(7);
-        list2.addToEnd(-2);
-        list2.addToEnd(10);
-
-        System.out.println(list2.averageNode().getValue());
     }
 }
