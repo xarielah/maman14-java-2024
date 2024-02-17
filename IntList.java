@@ -65,8 +65,7 @@ public class IntList {
             sum += p.getValue();
 
             // If the sum is greater than the target number, we will eliminate the first
-            // (tail)
-            // element in the list and move the tail pointer to the next node.
+            // (tail) element in the list and move the tail pointer to the next node.
             if (sum > num) {
                 sum -= tail.getValue();
                 tail = tail.getNext();
