@@ -42,8 +42,8 @@ public class IntList {
      * node.
      * 
      * Spcae complexity is one because I'm using only two pointers, and it doesn't
-     * matter weather the input
-     * is 10 or 1000, the space complexity will remain the same.
+     * matter weather the input is 10 or 1000, the space complexity will remain
+     * the same.
      * 
      * @param num
      * @return boolean
