@@ -87,15 +87,84 @@ public class IntList {
 
     /**
      * Space complexity is O(1) and time complexity is O(n).
+     * I use here two while loops, since they're separate, each loop is
+     * O(n), so the time complexity is O(2n) and we drop constants, therefore time
+     * complexity is O(n).
      * 
-     * @return
+     * Space complexity is O(1) because I'm using only a few constant variables,
+     * that does not change with greater / smaller input.
+     * 
+     * @return IntNode
      */
     public IntNode averageNode() {
         // If list is empty or has only one element, return null.
         if (_head == null || _head.getNext() == null)
             return null;
 
-        return _head;
+        // Initialize max as the head of the list.
+        IntNode max = _head;
+
+        // Initialize avg1 and avg2 as 0, this will be used to calculate each
+        // part of the separated sublists.
+        double avg1 = 0, avg2 = 0;
+
+        // Initialize maxAvg as the minimum value of a double.
+        double maxAvg = Double.MIN_VALUE;
+
+        // Initialize len and count as 0, this will be used to calculate the length
+        // of the list and the count of he deep we are into the list.
+        int len = 0, count = 0;
+
+        // Initialize sum, sum1 and sum2 as 0, this will be used to calculate the sum
+        // of the list, and the sum of each sublist.
+        int sum = 0, sum1 = 0, sum2 = 0;
+
+        // Initialize a current pointer to the head of the list,
+        // this will be used to iterate through the list to sum the values.
+        IntNode cur = _head;
+
+        // While loop to initialize the sum and the length of the list.
+        // this operation is O(n).
+        while (cur != null) {
+            len++;
+            sum += cur.getValue();
+            cur = cur.getNext();
+        }
+
+        // Reset the current pointer to the head of the list.
+        cur = _head;
+
+        // While loop to iterate through the list and calculate the average of each
+        // sublist. This operation is O(n).
+        while (cur != null) {
+            // Increment the count by 1.
+            count++;
+
+            // Add the current value to sum1, and calculate the average of the first
+            // sublist by dividing the sum1 by the count.
+            sum1 += cur.getValue();
+            avg1 = (double) sum1 / count;
+
+            // Calculate the sum2 by subtracting the sum1 from the sum, and calculate the
+            // average of the second sublist by dividing the sum2 by the length of the list
+            // minus the count.
+            sum2 = sum - sum1;
+            avg2 = (double) sum2 / (len - count);
+
+            // If the absolute difference between avg1 and avg2 is greater than the maxAvg,
+            // set max as the current node and maxAvg as the absolute difference between
+            // avg1 and avg2.
+            if (maxAvg < Math.abs(avg1 - avg2)) {
+                max = cur;
+                maxAvg = Math.abs(avg1 - avg2);
+            }
+
+            // Move the current pointer to the next node in the list.
+            cur = cur.getNext();
+        }
+
+        // Return the max node.
+        return max;
     }
 
     public static void main(String[] args) {
@@ -107,5 +176,13 @@ public class IntList {
         list.addToEnd(1);
 
         System.out.println(list.subListSum(5));
+
+        IntList list2 = new IntList();
+        list2.addToEnd(5);
+        list2.addToEnd(7);
+        list2.addToEnd(-2);
+        list2.addToEnd(10);
+
+        System.out.println(list2.averageNode().getValue());
     }
 }
